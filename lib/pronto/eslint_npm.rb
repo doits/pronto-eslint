@@ -35,7 +35,7 @@ module Pronto
     end
 
     def js_file?(path)
-      %w(.js .es6 .js.es6).include?(File.extname(path))
+      path.to_s =~ /(\.js|\.es6|\.js\.es6)(\.erb)?$/
     end
 
     def run_eslint(patch)
