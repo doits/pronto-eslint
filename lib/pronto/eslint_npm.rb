@@ -4,9 +4,9 @@ require 'shellwords'
 module Pronto
   class ESLintNpm < Runner
     CONFIG_FILE = '.pronto_eslint_npm.yml'.freeze
-    CONFIG_KEYS = %w(eslint_executable files_to_lint).freeze
+    CONFIG_KEYS = %w(eslint_executable files_to_lint cmd_line_opts).freeze
 
-    attr_writer :eslint_executable
+    attr_writer :eslint_executable, :cmd_line_opts
 
     def eslint_executable
       @eslint_executable || 'eslint'.freeze
@@ -14,6 +14,10 @@ module Pronto
 
     def files_to_lint
       @files_to_lint || /(\.js|\.es6)$/
+    end
+
+    def cmd_line_opts
+      @cmd_line_opts || ''
     end
 
     def files_to_lint=(regexp)
@@ -75,7 +79,7 @@ module Pronto
       Dir.chdir(repo_path) do
         escaped_file_path = Shellwords.escape(patch.new_file_full_path.to_s)
         JSON.parse(
-          `#{eslint_executable} #{escaped_file_path} -f json`
+          `#{eslint_executable} #{cmd_line_opts} #{escaped_file_path} -f json`
         )
       end
     end
@@ -86,8 +90,8 @@ module Pronto
       # 3. Ignore errors without a line number for now
       output
         .select { |offence| offence['errorCount'] + offence['warningCount'] > 0 }
-        .map { |offence| offence['messages'] }
-        .flatten.select { |offence| offence['line'] }
+        .map { |offence| JSON.parse(offence['messages'].to_json) }
+        .flatten.select{ |offence| offence['line'] }
     end
   end
 end

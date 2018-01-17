@@ -35,6 +35,7 @@ Following options are available:
 | ----------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
 | eslint_executable | ESLint executable to call.                                                               | `eslint` (calls `eslint` in `PATH`) |
 | files_to_lint     | What files to lint. Absolute path of offending file will be matched against this Regexp. | `(\.js|\.es6)$`                     |
+| cmd_line_opts     | Command line options to pass to eslint when running                                      | ''                                  |
 
 Example configuration to call custom eslint executable and only lint files ending with `.my_custom_extension`:
 
@@ -42,4 +43,5 @@ Example configuration to call custom eslint executable and only lint files endin
 # .pronto_eslint_npm.yml
 eslint_executable: '/my/custom/node/path/.bin/eslint'
 files_to_lint: '\.my_custom_extension$'
+cmd_line_opts: '--ext .html,.js,.es6'
 ```

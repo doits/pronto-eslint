@@ -56,6 +56,15 @@ module Pronto
         end
 
         context(
+          'with cmd_line_opts to include .html',
+          config: { 'cmd_line_opts' => '--ext .html' }
+        ) do
+          it 'returns correct number of errors' do
+            expect(run.count).to eql 5
+          end
+        end
+
+        context(
           'with different eslint executable',
           config: { 'eslint_executable' => './custom_eslint.sh' }
         ) do
