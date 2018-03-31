@@ -154,6 +154,7 @@ module Pronto
         config: { 'cmd_line_opts' => '--my command --line opts' }
       ) do
         it 'includes the custom command line options' do
+          eslint.read_config
           expect(eslint_command_line).to include('--my command --line opts')
         end
       end
