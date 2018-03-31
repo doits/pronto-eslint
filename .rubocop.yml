@@ -1,18 +1,56 @@
+---
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
+  TargetRubyVersion: 2.1.0
 
 Documentation:
   Enabled: false
 
-Metrics/MethodLength:
-  Max: 20
+Layout/ExtraSpacing:
+  ForceEqualSignAlignment: true
 
-Metrics/LineLength:
-  Max: 100
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
 
 Metrics/AbcSize:
-  Max: 20
+  Max: 40
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/CyclomaticComplexity:
+  Max: 15
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 30
 
 Metrics/ParameterLists:
   Max: 10
+
+Rails:
+  Enabled: true
+
+Rails/InverseOf:
+  Enabled: false
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false

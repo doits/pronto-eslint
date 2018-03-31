@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Pronto
@@ -106,6 +108,45 @@ module Pronto
 
       it 'is `eslint` by default' do
         expect(eslint_executable).to eql('eslint')
+      end
+
+      context(
+        'with different eslint executable config',
+        config: { 'eslint_executable' => 'custom_eslint' }
+      ) do
+        it 'is correct' do
+          eslint.read_config
+          expect(eslint_executable).to eql('custom_eslint')
+        end
+      end
+    end
+
+    describe '#eslint_command_line' do
+      subject(:eslint_command_line) { eslint.send(:eslint_command_line, path) }
+      let(:path) { '/some/path.rb' }
+
+      it 'adds json output flag' do
+        expect(eslint_command_line).to include('-f json')
+      end
+
+      it 'adds path' do
+        expect(eslint_command_line).to include(path)
+      end
+
+      it 'starts with eslint executable' do
+        expect(eslint_command_line).to start_with(eslint.eslint_executable)
+      end
+
+      context 'with path that should be escaped' do
+        let(:path) { '/must be/$escaped' }
+
+        it 'escapes the path correctly' do
+          expect(eslint_command_line).to include('/must\\ be/\\$escaped')
+        end
+
+        it 'does not include unescaped path' do
+          expect(eslint_command_line).not_to include(path)
+        end
       end
     end
   end
