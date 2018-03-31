@@ -97,7 +97,7 @@ module Pronto
       # 3. Ignore errors without a line number for now
       output
         .select { |offence| offence['errorCount'] + offence['warningCount'] > 0 }
-        .map { |offence| JSON.parse(offence['messages'].to_json) }
+        .map { |offence| offence['messages'] }
         .flatten.select{ |offence| offence['line'] }
     end
   end
