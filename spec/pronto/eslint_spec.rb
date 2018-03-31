@@ -148,6 +148,15 @@ module Pronto
           expect(eslint_command_line).not_to include(path)
         end
       end
+      
+      context(
+        'with some command line options',
+        config: { 'cmd_line_opts' => '--my command --line opts' }
+      ) do
+        it 'includes the custom command line options' do
+          expect(eslint_command_line).to include('--my command --line opts')
+        end
+      end
     end
   end
 end
