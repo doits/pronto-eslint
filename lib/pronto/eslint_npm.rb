@@ -98,7 +98,7 @@ module Pronto
       output
         .select { |offence| offence['errorCount'] + offence['warningCount'] > 0 }
         .map { |offence| offence['messages'] }
-        .flatten.select{ |offence| offence['line'] }
+        .flatten.select { |offence| offence['line'] }
     end
   end
 end
