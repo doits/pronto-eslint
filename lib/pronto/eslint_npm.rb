@@ -60,13 +60,13 @@ module Pronto
     end
 
     def inspect(patch)
+      lines = patch.added_lines
       offences = run_eslint(patch)
       clean_up_eslint_output(offences)
         .map do |offence|
-          patch
-            .added_lines
-            .select { |line| line.new_lineno == offence['line'] }
-            .map { |line| new_message(offence, line) }
+          range = offence['line']..(offence['endLine'] || offence['line'])
+          line = lines.select { |line| range.cover?(line.new_lineno) }.last
+          new_message(offence, line) if line
         end
     end
 
