@@ -32,13 +32,15 @@ module Pronto
         let(:patches) { repo.diff('master') }
 
         it 'returns correct number of errors' do
-          expect(run.count).to eql(5)
+          expect(run.count).to eql(7)
         end
 
         it 'has correct messages' do
           expect(run.map(&:msg)).to eql([
             "'foo' is not defined.",
             "'foo' is not defined.",
+            "More than 2 blank lines not allowed.",
+            "'Empty' is defined but never used.",
             "'HelloWorld' is defined but never used.",
             "'foo' is not defined.",
             "'foo' is not defined."
@@ -46,11 +48,13 @@ module Pronto
         end
 
         it 'has correct line numbers' do
-          expect(run.map { |m| m.line.new_lineno }).to eql([3, 3, 1, 3, 3])
+          expect(run.map { |m| m.line.new_lineno }).to eql([3, 3, 9, 9, 1, 3, 3])
         end
 
         it 'has correct levels' do
-          expect(run.map(&:level)).to eql([:warning, :warning, :warning, :warning, :warning])
+          expect(run.map(&:level)).to eql([
+            :warning, :warning, :warning, :warning, :warning, :warning, :warning
+          ])
         end
 
         context(
@@ -67,13 +71,15 @@ module Pronto
           config: { 'files_to_lint' => '\.js$' }
         ) do
           it 'returns correct amount of errors' do
-            expect(run.count).to eql(2)
+            expect(run.count).to eql(4)
           end
 
           it 'has correct messages' do
             expect(run.map(&:msg)).to eql([
               "'foo' is not defined.",
-              "'foo' is not defined."
+              "'foo' is not defined.",
+              "More than 2 blank lines not allowed.",
+              "'Empty' is defined but never used."
             ])
           end
         end
@@ -83,13 +89,15 @@ module Pronto
           config: { 'cmd_line_opts' => '--ext .html' }
         ) do
           it 'returns correct number of errors' do
-            expect(run.count).to eql 5
+            expect(run.count).to eql(7)
           end
 
           it 'has correct messages' do
             expect(run.map(&:msg)).to eql([
               "'foo' is not defined.",
               "'foo' is not defined.",
+              "More than 2 blank lines not allowed.",
+              "'Empty' is defined but never used.",
               "'HelloWorld' is defined but never used.",
               "'foo' is not defined.",
               "'foo' is not defined."

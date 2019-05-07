@@ -12,3 +12,4 @@ e438134aac40ce86789d552f1bdada6582a987f6 85e04b1eb1a721d42db51d49e49dfeb8255a574
 931004157205727e6a47586feaed0473c6ddbd66 931004157205727e6a47586feaed0473c6ddbd66 Mindaugas Mozūras <mindaugas.mozuras@gmail.com> 1456674177 +0200	checkout: moving from master to curly
 931004157205727e6a47586feaed0473c6ddbd66 3a6237c5feacca9a37c36bec5110a1eeb9da703b Mindaugas Mozūras <mindaugas.mozuras@gmail.com> 1456674189 +0200	commit: Add a line of code that does not have the correct curlies (eslint)
 3a6237c5feacca9a37c36bec5110a1eeb9da703b 37018e429ad00f0ec961bd218e3dfa6a6e8cc05b Markus Doits <markus.doits@stellenticket.de> 1460316876 +0200	commit: add es6 file
+37018e429ad00f0ec961bd218e3dfa6a6e8cc05b 5b090723625612b7f1250af674e941994d280136 andrew morton <drewish@katherinehouse.com> 1557320235 -0600	commit: more bad code
