@@ -53,7 +53,7 @@ module Pronto
 
         it 'has correct levels' do
           expect(run.map(&:level)).to eql([
-            :warning, :warning, :warning, :warning, :warning, :warning, :warning
+            :error, :error, :warning, :error, :error, :error, :error
           ])
         end
 

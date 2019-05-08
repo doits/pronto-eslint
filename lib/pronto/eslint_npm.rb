@@ -7,6 +7,7 @@ module Pronto
   class ESLintNpm < Runner
     CONFIG_FILE = '.pronto_eslint_npm.yml'.freeze
     CONFIG_KEYS = %w[eslint_executable files_to_lint cmd_line_opts].freeze
+    SEVERITY_LEVELS = [nil, :warning, :error].freeze
 
     attr_writer :eslint_executable, :cmd_line_opts
 
@@ -72,7 +73,7 @@ module Pronto
 
     def new_message(offence, line)
       path  = line.patch.delta.new_file[:path]
-      level = :warning
+      level = SEVERITY_LEVELS.fetch(offence['severity'], :warning)
 
       Message.new(path, line, level, offence['message'], nil, self.class)
     end
