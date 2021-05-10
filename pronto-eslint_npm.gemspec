@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths    = ['lib']
   s.requirements << 'eslint (in PATH)'
 
-  s.add_dependency('pronto', '~> 0.10.0')
+  s.add_dependency('pronto', '~> 0.11.0')
   s.add_development_dependency('rake', '>= 11.0', '< 13')
   s.add_development_dependency('rspec', '~> 3.4')
 end
