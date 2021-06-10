@@ -2,6 +2,7 @@
 
 require 'pronto'
 require 'shellwords'
+require 'parallel'
 
 module Pronto
   class ESLintNpm < Runner
@@ -47,11 +48,12 @@ module Pronto
 
       read_config
 
-      @patches
+      patches = @patches
         .select { |patch| patch.additions > 0 }
         .select { |patch| js_file?(patch.new_file_full_path) }
-        .map { |patch| inspect(patch) }
-        .flatten.compact
+
+      Parallel.flat_map(patches, in_threads: Parallel.processor_count) { |p| inspect(p) }
+        .compact
     end
 
     private
